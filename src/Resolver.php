@@ -11,16 +11,18 @@ class Resolver
     private $marks = [];
     private $nodes = [];
 
-    function __construct($options = [])
+    function __construct($schema = null, $options = [])
     {
         $_options = (array) $options;
-        if (!empty($_options)) {
+        if (! empty($_options)) {
             $this->marks = Utils::get($_options, 'marks', []);
             $this->nodes = Utils::get($_options, 'nodes', []);
             return null;
         }
 
-        $schema = new Schema();
+        if (! $schema) {
+            $schema = new Schema();
+        }
 
         $this->marks = $schema->getMarks();
         $this->nodes = $schema->getNodes();
